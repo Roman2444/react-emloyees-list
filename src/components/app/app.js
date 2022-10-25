@@ -15,10 +15,10 @@ class App extends Component {
 
     this.state = {
         data: [
-        {name: "Roman B.", salary: 2000, increase: true, id: 1},
-        {name: "Ivan M.", salary: 1500, increase: false, id: 2},
-        {name: "Sergey L.", salary: 780, increase: false, id: 3},
-        {name: "Eddie ", salary: 666, increase: true, id: 4},
+        {name: "Roman B.", salary: 2000, increase: true, rise: true, id: 1},
+        {name: "Ivan M.", salary: 1500, increase: false, rise: false, id: 2},
+        {name: "Sergey L.", salary: 780, increase: false, rise: false, id: 3},
+        {name: "Eddie ", salary: 666, increase: true, rise: false, id: 4},
       ]
     }
 
@@ -37,6 +37,7 @@ class App extends Component {
     const newItem = {
         ...item,
         increase: false,
+        rise: false,
         id: this.maxId++
     }
     this.setState(({data}) => {
@@ -48,11 +49,31 @@ class App extends Component {
 }
 
   onToggleIncrease = (id) => {
-    console.log(`ID increase ${id}`)
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id === id);
+
+      const old = data[index];
+      const newItem = {...old, increase: !old.increase};
+      const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+      return {
+        data: newArr
+      }
+    })
   }
 
   onToggleRise = (id) => {
-    console.log(`ID Rise ${id}`)
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id === id);
+      
+      const old = data[index];
+      const newItem = {...old, rise: !old.rise};
+      const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+      return {
+        data: newArr
+      }
+    })
   }
 
   render() { 
