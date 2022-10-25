@@ -21,6 +21,8 @@ class App extends Component {
         {name: "Eddie ", salary: 666, increase: true, id: 4},
       ]
     }
+
+    this.maxId = 5
   }
 
   deleteItem = (id) => {
@@ -30,6 +32,21 @@ class App extends Component {
         data: data.filter(el => el.id !== id)
       }
     })
+  }
+
+
+  updateDate = (e, value) => {
+    e.preventDefault();
+    value.id = this.maxId++
+    console.log( value)
+    this.setState(({data}) => {
+
+      return {
+        data: [...data, value]
+      }
+
+    })
+    console.log(this.state.data)
   }
 
   render() { 
@@ -45,7 +62,8 @@ class App extends Component {
             <EmployeesList 
                 data={this.state.data}
                 onDelete={this.deleteItem}/>
-            <EmployeesAddForm/>
+            <EmployeesAddForm
+                onUpdate={this.updateDate}/>
         </div>
       );
   }
