@@ -27,27 +27,39 @@ class App extends Component {
 
   deleteItem = (id) => {
     this.setState(({data}) => {
-
       return {
         data: data.filter(el => el.id !== id)
       }
     })
   }
 
-
-  updateDate = (e, value) => {
-    e.preventDefault();
-    value.id = this.maxId++
-    console.log( value)
+  addItem = (item) => {
+    const newItem = {
+        ...item,
+        increase: false,
+        id: this.maxId++
+    }
     this.setState(({data}) => {
+        const newArr = [...data, newItem];
+        return {
+            data: newArr
+        }
+    });
+}
 
-      return {
-        data: [...data, value]
-      }
+  // updateDate = (e, value) => {
+  //   e.preventDefault();
+  //   value.id = this.maxId++
+  //   console.log( value)
+  //   this.setState(({data}) => {
 
-    })
-    console.log(this.state.data)
-  }
+  //     return {
+  //       data: [...data, value]
+  //     }
+
+  //   })
+  //   console.log(this.state.data)
+  // }
 
   render() { 
       return (
@@ -63,7 +75,7 @@ class App extends Component {
                 data={this.state.data}
                 onDelete={this.deleteItem}/>
             <EmployeesAddForm
-                onUpdate={this.updateDate}/>
+                onAdd={this.addItem}/>
         </div>
       );
   }
