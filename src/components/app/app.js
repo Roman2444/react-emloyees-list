@@ -47,19 +47,13 @@ class App extends Component {
     });
 }
 
-  // updateDate = (e, value) => {
-  //   e.preventDefault();
-  //   value.id = this.maxId++
-  //   console.log( value)
-  //   this.setState(({data}) => {
+  onToggleIncrease = (id) => {
+    console.log(`ID increase ${id}`)
+  }
 
-  //     return {
-  //       data: [...data, value]
-  //     }
-
-  //   })
-  //   console.log(this.state.data)
-  // }
+  onToggleRise = (id) => {
+    console.log(`ID Rise ${id}`)
+  }
 
   render() { 
       return (
@@ -73,7 +67,9 @@ class App extends Component {
 
             <EmployeesList 
                 data={this.state.data}
-                onDelete={this.deleteItem}/>
+                onDelete={this.deleteItem}
+                onIncrease={this.onToggleIncrease}
+                onRise={this.onToggleRise}/>
             <EmployeesAddForm
                 onAdd={this.addItem}/>
         </div>
