@@ -51,7 +51,6 @@ class App extends Component {
     });
   }
 
-
   onToggleProp = (id, prop) => {
     this.setState(({data}) => ({
       data: data.map(item => {
@@ -88,6 +87,9 @@ class App extends Component {
     }
   }
 
+  onFilterSelect = (filter) => {
+    this.setState({filter})
+  }
 
   render() { 
     const {term, data, filter} = this.state;
@@ -102,7 +104,9 @@ class App extends Component {
 
             <div className="search-panel">
                 <SearchPanel  onUpdateSearch={this.onUpdateSearch}/>
-                <AppFilter filter={filter}/>
+                <AppFilter 
+                  filter={filter}
+                  onFilterSelect={this.onFilterSelect} />
             </div>
 
             <EmployeesList 
