@@ -14,12 +14,13 @@ class App extends Component {
     super(props)
 
     this.state = {
-        data: [
+      data: [
         {name: "Roman B.", salary: 2000, increase: true, rise: true, id: 1},
         {name: "Ivan M.", salary: 1500, increase: false, rise: false, id: 2},
         {name: "Sergey L.", salary: 780, increase: false, rise: false, id: 3},
         {name: "Eddie ", salary: 666, increase: true, rise: false, id: 4},
-      ]
+      ],
+      term: ''
     }
 
     this.maxId = 5
@@ -46,7 +47,7 @@ class App extends Component {
             data: newArr
         }
     });
-}
+  }
 
 
   onToggleProp = (id, prop) => {
@@ -60,10 +61,25 @@ class App extends Component {
     }))
   }
 
+  searchEmp = (items, term) => {
+    if (term.length === 0) {
+      return items;
+    }
+
+    return items.filter(item => {
+      return item.name.indexOf(term) > -1
+    })
+  }
+
+  onUpdateSearch = (term) => {
+    this.setState({term});
+  }
+
   render() { 
+    const {term, data} = this.state;
     const employees = this.state.data.length;
     const increased = this.state.data.filter(el => (el.increase===true)).length;
-
+    const visibleData = this.searchEmp(data, term);
       return (
         <div className="app">
             <AppInfo 
@@ -71,12 +87,12 @@ class App extends Component {
                 increased={increased}/>
 
             <div className="search-panel">
-                <SearchPanel/>
+                <SearchPanel  onUpdateSearch={this.onUpdateSearch}/>
                 <AppFilter/>
             </div>
 
             <EmployeesList 
-                data={this.state.data}
+                data={visibleData}
                 onDelete={this.deleteItem}
                 onToggleProp={this.onToggleProp}/>
             <EmployeesAddForm
