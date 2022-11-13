@@ -21,7 +21,7 @@ class App extends Component {
         {name: "Eddie ", salary: 666, increase: true, rise: false, id: 4},
       ],
       term: '',
-      filter: 'rise'
+      filter: 'all'
       
     }
 
